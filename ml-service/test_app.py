@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from app.main import app  # убедись, что путь правильный: app.main или main и т.д.
+from app import app  # убедись, что путь правильный: app.main или main и т.д.
 
 client = TestClient(app)
 
