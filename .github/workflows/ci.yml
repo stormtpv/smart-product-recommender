@@ -36,6 +36,12 @@ jobs:
           name: consumer-jar
           path: consumer-service/target/*.jar
 
+      - name: Save producer-service JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: producer-jar
+          path: producer-service/target/*.jar
+
   test-python:
     name: Test Python ML Service
     runs-on: ubuntu-latest
@@ -80,6 +86,12 @@ jobs:
         with:
           name: consumer-jar
           path: consumer-service/target
+
+      - name: Download producer-service JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: producer-jar
+          path: producer-service/target
 
       - name: Build Docker images
         run: |
