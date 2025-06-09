@@ -9,7 +9,7 @@ build:
 test:
 	$(MVNW) test
 
-# Docker build & run
+# Docker build and run
 docker-up:
 	docker-compose up --build
 
