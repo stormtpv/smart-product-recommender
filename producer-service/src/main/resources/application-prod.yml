@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: prod
+
+ml:
+  service:
+    base-url: https://ml-service-b218.onrender.com/recommend
+
