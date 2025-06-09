@@ -2,53 +2,14 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
 jobs:
-  build-java:
-    name: Build & Test Java Services
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
-      - name: grant execute permission to mvnw
-        run: chmod +x mvnw
-
-      - name: Build & install all modules
-        run: ./mvnw clean install -DskipTests=false
-        working-directory: ./
-
-      - name: Save consumer-service JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: consumer-jar
-          path: consumer-service/target/*.jar
-
-      - name: Save producer-service JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: producer-jar
-          path: producer-service/target/*.jar
-
   test-python:
     name: Test Python ML Service
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -58,7 +19,6 @@ jobs:
       - name: Install dependencies
         run: |
           cd ml-service
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
 
@@ -67,32 +27,35 @@ jobs:
           cd ml-service
           pytest
 
-  docker-build:
-    name: Build Docker Images
+
+  build-push-java:
+    name: Build & Push Java Services
     runs-on: ubuntu-latest
-    needs:
-      - build-java
-      - test-python
+    needs: test-python
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Download consumer-service JAR
-        uses: actions/download-artifact@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          name: consumer-jar
-          path: consumer-service/target
+          distribution: 'temurin'
+          java-version: '21'
 
-      - name: Download producer-service JAR
-        uses: actions/download-artifact@v4
-        with:
-          name: producer-jar
-          path: producer-service/target
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Docker images
+      - name: Build & push producer-service
         run: |
-          docker compose build
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/producer-service:latest -f producer-service/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/producer-service:latest
+
+      - name: Build & push consumer-service
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/consumer-service:latest -f consumer-service/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/consumer-service:latest
+
+      - name: Build & push ml-service
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/ml-service:latest -f ml-service/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/ml-service:latest
