@@ -1,3 +1,7 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_ADVERTISED_LISTENERS}
+
 ml:
   service:
     base-url: ${ML_SERVICE_BASE_URL}
