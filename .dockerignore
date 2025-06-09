@@ -1,4 +1,6 @@
-target/
+**/target/
+!consumer-service/target/
+!producer-service/target/
 .idea/
 *.iml
 *.log
