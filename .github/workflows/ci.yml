@@ -26,7 +26,7 @@ jobs:
       - name: grant execute permission to mvnw
         run: chmod +x mvnw
 
-      - name: Build & test
+      - name: Build & install all modules
         run: ./mvnw clean install -DskipTests=false
         working-directory: ./
 
