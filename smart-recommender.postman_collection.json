@@ -1,0 +1,36 @@
+{
+  "info": {
+    "name": "Smart Product Recommender",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Recommendations",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/recommendation?userId=1&productId=123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "recommendation"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            },
+            {
+              "key": "productId",
+              "value": "123"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
