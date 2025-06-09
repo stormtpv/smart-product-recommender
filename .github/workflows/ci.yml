@@ -27,7 +27,6 @@ jobs:
           cd ml-service
           pytest
 
-
   build-push-java:
     name: Build & Push Java Services
     runs-on: ubuntu-latest
