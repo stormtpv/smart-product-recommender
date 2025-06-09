@@ -28,6 +28,7 @@ jobs:
 
       - name: Build & test
         run: ./mvnw clean install -DskipTests=false
+        working-directory: ./
 
   test-python:
     name: Test Python ML Service
