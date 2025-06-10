@@ -17,11 +17,9 @@ public class EventLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String userId;
     private String productId;
     private String action;
-
     @ElementCollection
     private List<String> recommendations;
     private LocalDateTime timestamp = LocalDateTime.now();
