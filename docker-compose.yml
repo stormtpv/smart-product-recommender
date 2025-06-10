@@ -55,4 +55,4 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 ml-service producer-service consumer-service
+    command: --interval 30 smart-product-recommender-ml-service-1 smart-product-recommender-producer-service-1 smart-product-recommender-consumer-service-1

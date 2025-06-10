@@ -1,3 +1,7 @@
+spring:
+  kafka:
+    bootstrap-servers: kafka:9092
+
 ml:
   service:
     base-url: http://ml-service:8000
