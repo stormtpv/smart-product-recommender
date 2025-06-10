@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/recommendation")
@@ -20,9 +22,9 @@ public class RecommendationController {
     @GetMapping
     public RecommendResponseDto recommend(@RequestParam("userId") String userId,
                                           @RequestParam("productId") String productId) {
-        log.info("Received userId=" + userId + ", productId=" + productId);
-        RecommendResponseDto recommendations = recommendationService.getRecommendations(userId, productId);
-        log.info("Returned: " + recommendations);
-        return recommendations;
+        System.out.println("Received userId=" + userId + ", productId=" + productId);
+//        RecommendResponseDto recommendations = recommendationService.getRecommendations(userId, productId);
+//        System.out.println("Returned: " + recommendations);
+        return new RecommendResponseDto(List.of("user1", "user2", "user3"));
     }
 }
