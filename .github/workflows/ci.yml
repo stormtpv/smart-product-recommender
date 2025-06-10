@@ -46,15 +46,15 @@ jobs:
 
       - name: Build & push producer-service
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/producer-service:latest -f producer-service/Dockerfile .
+          docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/producer-service:latest -f producer-service/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/producer-service:latest
 
       - name: Build & push consumer-service
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/consumer-service:latest -f consumer-service/Dockerfile .
+          docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/consumer-service:latest -f consumer-service/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/consumer-service:latest
 
       - name: Build & push ml-service
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/ml-service:latest -f ml-service/Dockerfile .
+          docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/ml-service:latest -f ml-service/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/ml-service:latest
