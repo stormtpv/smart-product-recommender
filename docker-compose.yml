@@ -9,7 +9,7 @@ services:
     image: pteroschin/producer-service:latest
     restart: always
     ports:
-      - "8091:8091"
+      - "8091:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
@@ -19,7 +19,7 @@ services:
     image: pteroschin/consumer-service:latest
     restart: always
     ports:
-      - "8090:8090"
+      - "8090:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
