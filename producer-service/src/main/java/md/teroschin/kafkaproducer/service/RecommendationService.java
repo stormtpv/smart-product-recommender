@@ -25,7 +25,7 @@ public class RecommendationService {
     private String mlBaseUrl;
 
     public RecommendResponseDto getRecommendations(String userId, String productId) {
-        String uri = UriComponentsBuilder.fromUriString(mlBaseUrl)
+        String uri = UriComponentsBuilder.fromUriString(mlBaseUrl + "/recommend")
                 .queryParam("user_id", userId)
                 .queryParam("product_id", productId)
                 .toUriString();
