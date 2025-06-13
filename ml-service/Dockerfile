@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ml-service/ .
 
-RUN pip install fastapi uvicorn
+RUN pip install fastapi uvicorn prometheus_client
 
 EXPOSE 8000
 
