@@ -12,7 +12,7 @@ scrape_configs:
     static_configs:
       - targets: ['smart-product-recommender-consumer-service-1:8090']
 
-  - job_name: 'ml-service'
+  - job_name: 'smart-product-recommender-ml-service-1'
     metrics_path: '/metrics'
     static_configs:
       - targets: ['ml-service:8000']
