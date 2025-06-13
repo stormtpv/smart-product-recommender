@@ -16,3 +16,12 @@ server:
 ml:
   service:
     base-url: http://localhost:8000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+  endpoint:
+    prometheus:
+      enabled: true

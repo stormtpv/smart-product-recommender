@@ -15,3 +15,12 @@ spring:
     show-sql: true
 server:
   port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+  endpoint:
+    prometheus:
+      enabled: true
