@@ -1,17 +1,11 @@
-FROM eclipse-temurin:21-jdk AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 
-WORKDIR /app
-
+WORKDIR /build
 COPY . .
-
-RUN chmod +x mvnw
-RUN ./mvnw -B -pl consumer-service -am clean package -DskipTests
+RUN mvn clean package -pl consumer-service -am -DskipTests
 
 FROM eclipse-temurin:21-jre
-
 WORKDIR /app
-
-COPY --from=build /app/consumer-service/target/*.jar app.jar
-
+COPY --from=build /build/consumer-service/target/*.jar app.jar
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "app.jar"]

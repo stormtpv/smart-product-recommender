@@ -1,11 +1,9 @@
 FROM python:3.11-slim
 
 WORKDIR /app
+COPY . .
 
-COPY ml-service/ .
-
-RUN pip install fastapi uvicorn prometheus_client
+RUN pip install --no-cache-dir fastapi uvicorn prometheus_client
 
 EXPOSE 8000
-
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

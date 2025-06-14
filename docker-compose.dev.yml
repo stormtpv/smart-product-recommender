@@ -1,13 +1,17 @@
+version: "3.8"
+
 services:
   ml-service:
-    image: pteroschin/ml-service:latest
-    restart: always
+    build:
+      context: ./ml-service
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
 
   producer-service:
-    image: pteroschin/producer-service:latest
-    restart: always
+    build:
+      context: .
+      dockerfile: producer-service/Dockerfile
     ports:
       - "8091:8082"
     environment:
@@ -16,8 +20,9 @@ services:
       - ml-service
 
   consumer-service:
-    image: pteroschin/consumer-service:latest
-    restart: always
+    build:
+      context: .
+      dockerfile: consumer-service/Dockerfile
     ports:
       - "8090:8081"
     environment:
@@ -49,13 +54,6 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
-
-  watchtower:
-    image: containrrr/watchtower
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 smart-product-recommender-ml-service-1 smart-product-recommender-producer-service-1 smart-product-recommender-consumer-service-1
 
   prometheus:
     image: prom/prometheus
