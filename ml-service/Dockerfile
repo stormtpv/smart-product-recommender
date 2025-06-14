@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
 WORKDIR /app
-COPY . .
+COPY ml-service/ .
 
 RUN pip install --no-cache-dir fastapi uvicorn prometheus_client
 
