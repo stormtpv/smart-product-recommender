@@ -2,3 +2,4 @@ fastapi
 httpx
 uvicorn
 prometheus-client
+prometheus_fastapi_instrumentator
