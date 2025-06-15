@@ -64,12 +64,15 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
 
   grafana:
     image: grafana/grafana
     container_name: grafana
     ports:
       - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
 
   loki:
     image: grafana/loki
@@ -90,3 +93,7 @@ services:
       - "9080:9080"
     depends_on:
       - loki
+
+volumes:
+  grafana-storage:
+  prometheus-data:

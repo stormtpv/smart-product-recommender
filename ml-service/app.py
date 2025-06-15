@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query
+from prometheus_fastapi_instrumentator import Instrumentator
 from typing import List
 from pydantic import BaseModel
 from prometheus_client import Counter, generate_latest
@@ -6,6 +7,8 @@ from fastapi.responses import Response
 import random
 
 app = FastAPI()
+
+Instrumentator().instrument(app).expose(app)
 
 REQUEST_COUNT = Counter('request_count', 'Total request count')
 
@@ -23,4 +26,5 @@ async def metrics():
 
 @app.get("/recommend", response_model=RecommendResponse)
 def recommend(user_id: str = Query(...), product_id: str = Query(...)):
+    REQUEST_COUNT.inc()
     return RecommendResponse(recommendations=[f"prod-{random.randint(100, 999)}" for _ in range(3)])
